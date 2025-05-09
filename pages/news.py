@@ -12,8 +12,10 @@ def show():
     
     # Add a refresh button
     if st.button("🔄 Refresh News"):
-        # Clear cache using st.cache_data.clear()
-        st.cache_data.clear()
+        # Use st.experimental_memo.clear() to clear all cache
+        # Note: we don't do individual cache clearing as it can be complex
+        from streamlit import cache_data
+        cache_data.clear()
         st.rerun()
     
     # Show a loading spinner while fetching news
