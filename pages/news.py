@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.news import get_stock_news, format_relative_time
+import time
 
 def show():
     """
@@ -9,11 +10,28 @@ def show():
     
     st.title(f"📰 Latest News: {ticker}")
     
-    # Get news for the selected stock
-    news_items = get_stock_news(ticker, limit=20)
+    # Add a refresh button
+    if st.button("🔄 Refresh News"):
+        # Clear cache using st.cache_data.clear()
+        st.cache_data.clear()
+        st.rerun()
+    
+    # Show a loading spinner while fetching news
+    with st.spinner(f"Fetching latest news for {ticker}..."):
+        # Get news for the selected stock
+        news_items = get_stock_news(ticker, limit=20)
     
     if not news_items:
         st.info(f"No news articles found for {ticker}. Try another stock symbol or check back later.")
+        
+        # Add some troubleshooting steps for the user
+        with st.expander("Troubleshooting Steps"):
+            st.markdown("""
+            If you're not seeing any news, try these steps:
+            1. Click the "🔄 Refresh News" button above
+            2. Try a different stock symbol (popular ones like AAPL, MSFT, or AMZN often have more news)
+            3. Wait a few minutes and try again
+            """)
         return
     
     # Display news articles
