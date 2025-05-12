@@ -15,4 +15,4 @@ passlib[bcrypt]==1.7.4
 email-validator==2.1.1
 python-multipart==0.0.9
 plotly==6.0.1
-
+plotly
