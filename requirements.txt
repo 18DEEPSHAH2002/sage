@@ -1,0 +1,6 @@
+fastapi 
+pandas 
+yfinance 
+ta 
+streamlit 
+python-jose 
